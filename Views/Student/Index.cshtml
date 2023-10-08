@@ -1,0 +1,36 @@
+﻿@model IEnumerable<WebAppMvcProject.ViewModel.StudentInfoVM>
+@{
+    ViewBag.Title = "Index";
+}
+
+<p>
+    @Html.ActionLink("Create New", "CreateOrEdit")
+</p>
+
+<table class="table table-bordered table-responsive text-center">
+    <thead>
+        <tr>
+            <td>@Html.DisplayNameFor(x=>x.Id)</td>
+            <td>@Html.DisplayNameFor(x=>x.Name)</td>
+            <td>@Html.DisplayNameFor(x=>x.Phone)</td>
+            <td>@Html.DisplayNameFor(x=>x.Address)</td>
+            <td>@Html.DisplayNameFor(x=>x.Email)</td>
+            <td>@Html.DisplayNameFor(x=>x.Age)</td>
+        </tr>
+        
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+         {
+            <tr>
+                <td>@Html.DisplayFor(x => item.Id)</td>
+                <td>@Html.DisplayFor(x => item.Name)</td>
+                <td>@Html.DisplayFor(x => item.Phone)</td>
+                <td>@Html.DisplayFor(x => item.Address)</td>
+                <td>@Html.DisplayFor(x => item.Email)</td>
+                <td>@Html.DisplayFor(x => item.Age)</td>
+            </tr>
+         }
+    </tbody>
+</table>
+
