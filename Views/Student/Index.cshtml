@@ -4,18 +4,19 @@
 }
 
 <p>
-    @Html.ActionLink("Create New", "CreateOrEdit")
+    @Html.ActionLink("Create New", "Create", new {@class="btn btn-sucess"})
 </p>
 
 <table class="table table-bordered table-responsive text-center">
     <thead>
         <tr>
-            <td>@Html.DisplayNameFor(x=>x.Id)</td>
-            <td>@Html.DisplayNameFor(x=>x.Name)</td>
-            <td>@Html.DisplayNameFor(x=>x.Phone)</td>
-            <td>@Html.DisplayNameFor(x=>x.Address)</td>
-            <td>@Html.DisplayNameFor(x=>x.Email)</td>
-            <td>@Html.DisplayNameFor(x=>x.Age)</td>
+            <th>@Html.DisplayNameFor(x=>x.Id)</th>
+            <th>@Html.DisplayNameFor(x=>x.Name)</th>
+            <th>@Html.DisplayNameFor(x=>x.Phone)</th>
+            <th>@Html.DisplayNameFor(x=>x.Address)</th>
+            <th>@Html.DisplayNameFor(x=>x.Email)</th>
+            <th>@Html.DisplayNameFor(x=>x.Age)</th>
+            <th><span>Action</span></th>
         </tr>
         
     </thead>
@@ -29,6 +30,9 @@
                 <td>@Html.DisplayFor(x => item.Address)</td>
                 <td>@Html.DisplayFor(x => item.Email)</td>
                 <td>@Html.DisplayFor(x => item.Age)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary" }) | @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new {@class=" btn btn-danger", onclick = "return confirm('Are you sure you want to delete this item?');" })
+                </td>
             </tr>
          }
     </tbody>

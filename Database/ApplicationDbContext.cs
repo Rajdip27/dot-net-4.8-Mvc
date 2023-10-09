@@ -36,5 +36,7 @@ namespace WebAppMvcProject
                 .Property(e => e.Address)
                 .IsUnicode(false);
         }
+
+        public System.Data.Entity.DbSet<WebAppMvcProject.ViewModel.StudentInfoVM> StudentInfoVMs { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using WebAppMvcProject.Service;
 using WebAppMvcProject.ViewModel;
@@ -15,20 +14,56 @@ namespace WebAppMvcProject.Controllers
             _studentInfoRepository = studentInfoRepository;
         }
         [HttpGet]
-        public async Task <ActionResult> Index()
+        public async Task<ActionResult> Index()
         {
             var data = await _studentInfoRepository.GetStudentInfoAsync();
             return View(data);
         }
         [HttpGet]
-        public async Task<ActionResult> CreateOrEdit(int Id)
+        public ActionResult Create()
         {
-            if(Id == 0)
-                return View(new StudentInfoVM());
-            
-            else
-                return View(await _studentInfoRepository.GetById(Id));
-        }
+            StudentInfoVM studentInfo = new StudentInfoVM();
 
+            return View(studentInfo);
+        }
+        [HttpPost]
+        public async Task<ActionResult> Create(StudentInfoVM studentInfo)
+        {
+            if (ModelState.IsValid)
+            {
+                await _studentInfoRepository.CreateAsync(studentInfo);
+
+                return RedirectToAction("Index");
+
+            }
+            return View(studentInfo);
+        }
+        [HttpGet]
+        public async Task<ActionResult> Edit(int Id)
+        {
+            var data = await _studentInfoRepository.GetById(Id);
+            return View(data);
+        }
+        [HttpPost]
+        public async Task<ActionResult> Edit(int Id, StudentInfoVM studentInfo)
+        {
+            if (ModelState.IsValid)
+            {
+                await _studentInfoRepository.UpdateAsync(Id,studentInfo);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(studentInfo);
+        }
+        public async Task<ActionResult>Delete(int Id)
+        {
+            if (Id != 0)
+            {
+                await _studentInfoRepository.DeleteAsync(Id);
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction(nameof(Index));
+            
+        }
+      
     }
 }
