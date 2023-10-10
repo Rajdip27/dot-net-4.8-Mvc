@@ -42,6 +42,7 @@ namespace WebAppMvcProject.Controllers
         public async Task<ActionResult> Edit(int Id)
         {
             var data = await _studentInfoRepository.GetById(Id);
+
             return View(data);
         }
         [HttpPost]
@@ -50,6 +51,7 @@ namespace WebAppMvcProject.Controllers
             if (ModelState.IsValid)
             {
                 await _studentInfoRepository.UpdateAsync(Id,studentInfo);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(studentInfo);
@@ -59,6 +61,7 @@ namespace WebAppMvcProject.Controllers
             if (Id != 0)
             {
                 await _studentInfoRepository.DeleteAsync(Id);
+
                 return RedirectToAction(nameof(Index));
             }
             return RedirectToAction(nameof(Index));

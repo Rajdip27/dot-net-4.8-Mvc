@@ -33,7 +33,7 @@ namespace WebAppMvcProject
 
 
 
-            var mapperConfiguration = new MapperConfiguration(cfg => { cfg.AddProfile(new CommonMapper()); });
+            var mapperConfiguration = new MapperConfiguration(cfg => { cfg.AddProfile(new CommonMapper());});
 
             
             var mapper = mapperConfiguration.CreateMapper();
