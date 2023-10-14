@@ -1,5 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using FluentNHibernate.Testing.Values;
+using Microsoft.Reporting.WebForms;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using WebAppMvcProject.Reports;
+using WebAppMvcProject.ReportsConfiguration;
 using WebAppMvcProject.Service;
 using WebAppMvcProject.ViewModel;
 
@@ -65,8 +70,32 @@ namespace WebAppMvcProject.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return RedirectToAction(nameof(Index));
-            
         }
-      
+
+        public async Task<ActionResult> StudentReport()
+        {
+            var data = await _studentInfoRepository.GetStudentInfoAsync();
+            var reportDataSource = new List<ReportDataSource>() { new ReportDataSource("DsStudent", data) };
+            var config = new ReportConfig { ReportFilePath = Server.MapPath("~/Rdlc/StudentListReport.rdlc") };
+            return new ReportResult(config, reportDataSource);
+        }
+
+
+
+        public async Task<ActionResult> StudentsingleReport(int id)
+        {
+            // var data = await _studentInfoRepository.GetById(id);
+            //var reportDataSource = new List<ReportDataSource>() { new ReportDataSource("DsStudent", data) };
+            //var config = new ReportConfig { ReportFilePath = Server.MapPath("~/Rdlc/StudentListReport.rdlc") };
+            //return new ReportResult(config, reportDataSource);
+
+            var data = await _studentInfoRepository.GetById(id);
+            var dataList = new List<StudentInfoVM> { data };
+            var reportDataSource = new List<ReportDataSource>() { new ReportDataSource("DsStudent", dataList) };
+            var config = new ReportConfig { ReportFilePath = Server.MapPath("~/Rdlc/StudentListReport.rdlc") };
+            return new ReportResult(config, reportDataSource);
+
+
+        }
     }
 }

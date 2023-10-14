@@ -8,6 +8,8 @@ namespace WebAppMvcProject.Service
     public interface IStudentInfoRepository
     {
         Task<List<StudentInfoVM>> GetStudentInfoAsync();
+
+      
         Task<StudentInfoVM> CreateAsync(StudentInfoVM studentInfo);
         Task<StudentInfoVM> UpdateAsync(int Id, StudentInfoVM studentInfo);
         Task<StudentInfoVM> GetById(int Id);

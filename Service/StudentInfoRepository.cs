@@ -14,6 +14,7 @@ namespace WebAppMvcProject.Service
         public StudentInfoRepository(ApplicationDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
+
             _mapper = mapper;
         }
 
@@ -45,17 +46,24 @@ namespace WebAppMvcProject.Service
         public async Task<StudentInfoVM> GetById(int Id)
         {
             var studentInfo = await _dbContext.StudentInfoes.FindAsync(Id);
+
             var data= _mapper.Map<StudentInfoVM>(studentInfo);
+
             return data;
         }
 
         public async Task<List<StudentInfoVM>> GetStudentInfoAsync()
         {
             var studentInfos = await _dbContext.StudentInfoes.ToListAsync();
+
             var data = _mapper.Map<List<StudentInfoVM>>(studentInfos); 
+
             return data ;
         }
 
+
+
+      
         public async Task<StudentInfoVM> UpdateAsync(int Id, StudentInfoVM studentInfo)
         {
             var existingStudentInfo = await _dbContext.StudentInfoes.FindAsync(Id);
